@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:06 by yonshin           #+#    #+#             */
-/*   Updated: 2022/11/29 17:55:37 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/11/30 00:45:10 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 # ifndef HEIGHT
 #  define HEIGHT 600
 # endif
+
+# define C_RED 0xFF0000
+# define C_GREEN 0x00FF00
+# define C_BLUE 0x0000FF
+# define C_YELLOW 0xFFFF00
+# define C_WHITE 0xFFFFFF
 
 typedef struct s_point
 {

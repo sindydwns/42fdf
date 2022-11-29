@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/11/29 18:01:43 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/11/30 00:45:31 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,16 @@ int	main(void)
 	// 	draw_pixel(&data.img, (t_point){0xFF - i, i}, 0xFFFFFFFF);
 	// }
 
-	// draw_line(&data.img, (t_point){100, 100}, (t_point){200, 150}, 0x00FF00);
-	draw_line(&data.img, (t_point){100, 100}, (t_point){63, 0}, 0x00FF00);
-	draw_line(&data.img, (t_point){100, 100}, (t_point){200, 200}, 0xFF0000);
-	draw_line(&data.img, (t_point){100, 100}, (t_point){100, 200}, 0x0000FF);
-	draw_line(&data.img, (t_point){100, 100}, (t_point){200, 100}, 0xFFFF00);
-	draw_line(&data.img, (t_point){100, 100}, (t_point){50, 200}, 0x00FFFF);
-	draw_line(&data.img, (t_point){100, 100}, (t_point){200, 50}, 0xFF00FF);
-	draw_line(&data.img, (t_point){100, 100}, (t_point){200, 175}, 0xFFFFFF);
+	draw_line(&data.img, (t_point){100, 100}, (t_point){50, 0}, C_GREEN);
+	draw_line(&data.img, (t_point){0, 100}, (t_point){100, 0}, C_YELLOW);
+	draw_line(&data.img, (t_point){0, 100}, (t_point){63, 0}, C_YELLOW);
+	draw_line(&data.img, (t_point){0, 100}, (t_point){50, 0}, C_YELLOW);
+	draw_line(&data.img, (t_point){100, 100}, (t_point){200, 200}, C_RED);
+	// draw_line(&data.img, (t_point){100, 100}, (t_point){100, 200}, 0x0000FF);
+	// draw_line(&data.img, (t_point){100, 100}, (t_point){200, 100}, 0xFFFF00);
+	// draw_line(&data.img, (t_point){100, 100}, (t_point){50, 200}, 0x00FFFF);
+	// draw_line(&data.img, (t_point){100, 100}, (t_point){200, 50}, 0xFF00FF);
+	// draw_line(&data.img, (t_point){100, 100}, (t_point){200, 175}, 0xFFFFFF);
 
 	mlx_put_image_to_window(data.mlx, data.win, data.img.obj, 0, 0);
 	// draw_line(&data, (t_point){0, 0}, (t_point){100, 100}, 0xFFFFFF);
