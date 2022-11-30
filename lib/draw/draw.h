@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:06 by yonshin           #+#    #+#             */
-/*   Updated: 2022/11/30 00:45:10 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/01 00:53:54 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ typedef struct	s_img {
 	int		line_length;
 	int		endian;
 }	t_img;
+
+typedef struct s_option
+{
+	int color;
+}	t_option;
+
 
 typedef struct	s_data {
 	void				*mlx;

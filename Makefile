@@ -6,7 +6,7 @@
 #    By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 20:46:00 by yonshin           #+#    #+#              #
-#    Updated: 2022/11/30 00:15:30 by yonshin          ###   ########.fr        #
+#    Updated: 2022/11/30 13:42:03 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,10 +49,12 @@ re:
 	make fclean
 	make all
 
-run: all
+dev:
+	if [ -e $(NAME) ]; then make fclean; fi
+	make all
 	./$(NAME)
 
 debug:
 	make DEBUG='-g3 -fsanitize=address'
 
-.PHONY : all clean fclean re bonus debug
+.PHONY : all clean fclean re bonus debug dev
