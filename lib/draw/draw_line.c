@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:46:33 by yonshin           #+#    #+#             */
-/*   Updated: 2022/11/30 18:33:55 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/07 15:12:27 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int	draw_line(t_img *target, t_point start, t_point end, int color)
 		if (error * 2 >= dy)
 		{
 			if (start.x == end.x)
-				break;
+				break ;
 			error += dy;
 			start.x += (start.x < end.x) - (start.x >= end.x);
 		}
 		if (error * 2 <= dx)
 		{
 			if (start.y == end.y)
-				break;
+				break ;
 			error += dx;
 			start.y += (start.y < end.y) - (start.y >= end.y);
 		}

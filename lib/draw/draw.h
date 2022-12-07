@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:06 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/01 00:53:54 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/07 15:11:19 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
-typedef struct	s_img {
+typedef struct s_img {
 	void	*obj;
 	char	*addr;
 	int		bits_per_pixel;
@@ -42,11 +42,11 @@ typedef struct	s_img {
 
 typedef struct s_option
 {
-	int color;
+	int	color;
 }	t_option;
 
-
-typedef struct	s_data {
+typedef struct s_data
+{
 	void				*mlx;
 	void				*win;
 	unsigned long long	frame;
