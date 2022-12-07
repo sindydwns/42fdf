@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:06 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/07 15:11:19 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/08 01:11:25 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,6 @@ typedef struct s_option
 {
 	int	color;
 }	t_option;
-
-typedef struct s_data
-{
-	void				*mlx;
-	void				*win;
-	unsigned long long	frame;
-	t_img				img;
-}	t_data;
 
 int	draw_pixel(t_img *target, t_point point, int color);
 int	draw_line(t_img *target, t_point start, t_point end, int color);

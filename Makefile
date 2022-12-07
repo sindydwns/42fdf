@@ -6,7 +6,7 @@
 #    By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 20:46:00 by yonshin           #+#    #+#              #
-#    Updated: 2022/11/30 13:42:03 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/08 01:53:29 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,10 @@ LIB = \
 INCLUDE = $(addprefix -I, $(dir $(LIB))) -I$(dir $(MLXLIB))
 LIBDUP = $(notdir $(LIB)) $(notdir $(MLXLIB))
 OBJS = \
-	fdf.o
+	fdf.o \
+	init_map.o \
+	destroy_map.o \
+	mapv.o \
 
 all: $(NAME) 
 
