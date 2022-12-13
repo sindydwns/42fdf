@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 20:46:00 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/08 01:53:29 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/08 07:41:24 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ CFLAGS = -Wall -Wextra -Werror
 MLXLIB = ./lib/mlx/libmlx.a
 LIB = \
 	./lib/draw/libdraw.a \
+	./lib/vector/libvector.a
 
 INCLUDE = $(addprefix -I, $(dir $(LIB))) -I$(dir $(MLXLIB))
 LIBDUP = $(notdir $(LIB)) $(notdir $(MLXLIB))

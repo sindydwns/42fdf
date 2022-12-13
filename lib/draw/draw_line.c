@@ -6,12 +6,12 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:46:33 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/07 15:12:27 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/08 07:43:30 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "draw.h"
 #include <math.h>
+#include "draw.h"
 
 static int	abs(int value)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/08 03:36:05 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/08 10:44:28 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,18 @@ void	*ft_memset(void *b, int c, size_t len)
 void	render_frame(t_img *img, t_map *map, t_camera *camera, t_extra *e)
 {
 	map->width = map->height;
-	camera->pos = (t_vector){1, 1, 1};
+	camera->pos = vect(50, 50, 50);
+	t_vector dir = vnor(vect(-1, -1, -1));
 	for (int x = 0; x < map->width; x++) {
 		for (int y = 0; y < map->height; y++) {
-			t_vector p = (t_vector){x * 10, y * 10, 0};
-			t_vector c = (t_vector){-1, -1, -1};
-			t_vector f = (t_vector){p.x - c.x, p.y - c.y, p.z - c.z};
-			
+			t_vector point = vmul(vect(x, y, 0), 10);
+			t_vector normal = vmul(dir, vdot(dir, point));
+			t_vector result = vsub(point, normal);
+			t_vector center = vsub(result, camera->pos);
+			draw_line(img, (t_point){WIDTH / 2, HEIGHT / 2}, to_point(result), C_YELLOW);
 		}
 	}
-	draw_line(img, (t_point){100, 100}, e->mouse, C_YELLOW);
+	e++;
 }
 
 int	render_next_frame(t_data *data)

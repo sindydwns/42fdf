@@ -5,19 +5,24 @@
 #                                                     +:+ +:+         +:+      #
 #    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/28 19:27:45 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/08 07:44:40 by yonshin          ###   ########.fr        #
+#    Created: 2022/12/08 07:41:41 by yonshin           #+#    #+#              #
+#    Updated: 2022/12/08 08:41:20 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libdraw.a
+NAME = libvector.a
 CFLAGS = -Wall -Wextra -Werror
 ARFLAGS = rc
 OBJS = \
-	draw_pixel.o \
-	draw_line.o \
-	draw_rect.o \
-	draw_circle.o \
+	vect.o \
+	vsum.o \
+	vsub.o \
+	vrev.o \
+	vmul.o \
+	vpdt.o \
+	vdot.o \
+	vmag.o \
+	vnor.o \
 
 INCLUDE =
 

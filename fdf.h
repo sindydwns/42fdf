@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/08 03:26:00 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/08 10:38:21 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,19 @@
 # include <stdlib.h>
 # include "mlx.h"
 # include "draw.h"
+# include "vector.h"
 #include			<stdio.h>
 
 typedef struct s_map
 {
 	int	*map;
 	int	width;
-	int height;
+	int	height;
 }	t_map;
-
-typedef struct s_vector
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_vector;
 
 typedef struct s_camera
 {
 	t_vector	pos;
-	t_vector	dir;
 	t_vector	rot;
 	int			zoom;
 }	t_camera;
