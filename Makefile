@@ -6,7 +6,7 @@
 #    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 20:46:00 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/08 07:41:24 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/13 18:44:04 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,13 @@ CFLAGS = -Wall -Wextra -Werror
 MLXLIB = ./lib/mlx/libmlx.a
 LIB = \
 	./lib/draw/libdraw.a \
-	./lib/vector/libvector.a
+	./lib/vector/libvector.a \
+	./lib/libft/libft.a \
 
 INCLUDE = $(addprefix -I, $(dir $(LIB))) -I$(dir $(MLXLIB))
 LIBDUP = $(notdir $(LIB)) $(notdir $(MLXLIB))
 OBJS = \
 	fdf.o \
-	init_map.o \
 	destroy_map.o \
 	mapv.o \
 
