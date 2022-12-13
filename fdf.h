@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/08 10:38:21 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/13 13:47:24 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ typedef struct s_data
 	t_extra				extra;
 }	t_data;
 
-int		init_map(t_map *map, int width, int height);
+int		*parse(const char *path, int *width, int *height);
+int		parse_map(const char *path, t_map *map);
 void	destroy_map(t_map *map);
 int		mapv(t_map *map, int x, int y);
 

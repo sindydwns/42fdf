@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/08 10:44:28 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/13 21:15:47 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,21 @@ void	*ft_memset(void *b, int c, size_t len)
 
 void	render_frame(t_img *img, t_map *map, t_camera *camera, t_extra *e)
 {
-	map->width = map->height;
-	camera->pos = vect(50, 50, 50);
-	t_vector dir = vnor(vect(-1, -1, -1));
-	for (int x = 0; x < map->width; x++) {
-		for (int y = 0; y < map->height; y++) {
-			t_vector point = vmul(vect(x, y, 0), 10);
-			t_vector normal = vmul(dir, vdot(dir, point));
-			t_vector result = vsub(point, normal);
-			t_vector center = vsub(result, camera->pos);
-			draw_line(img, (t_point){WIDTH / 2, HEIGHT / 2}, to_point(result), C_YELLOW);
-		}
-	}
-	e++;
+	map++;
+	camera++;
+	draw_line(img, (t_point){WIDTH / 2, HEIGHT / 2}, e->mouse, C_YELLOW);
+	// map->width = map->height;
+	// camera->pos = vect(50, 50, 50);
+	// t_vector dir = vnor(vect(-1, -1, -1));
+	// for (int x = 0; x < map->width; x++) {
+	// 	for (int y = 0; y < map->height; y++) {
+	// 		t_vector point = vmul(vect(x, y, 0), 10);
+	// 		t_vector normal = vmul(dir, vdot(dir, point));
+	// 		t_vector result = vsub(point, normal);
+	// 		t_vector center = vsub(result, camera->pos);
+	// 	}
+	// }
+	// e++;
 }
 
 int	render_next_frame(t_data *data)
@@ -56,16 +58,15 @@ void	key_down_events(int key_code)
 		exit(0);
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_data	data;
 
+	if (argc != 2)
+		exit(1);
 	ft_memset(&data, 0, sizeof(data));
 	data.mlx = mlx_init();
-	data.frame = 0;
-	if (data.mlx == 0)
-		return (1);
-	if (init_map(&data.map, 10, 10))
+	if (data.mlx == 0 || parse_map(argv[1], &data.map))
 		exit(1);
 	data.camera.zoom = 10;
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "fdf");
