@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/13 21:15:47 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/17 03:52:09 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,23 @@ void	*ft_memset(void *b, int c, size_t len)
 
 void	render_frame(t_img *img, t_map *map, t_camera *camera, t_extra *e)
 {
-	map++;
 	camera++;
 	draw_line(img, (t_point){WIDTH / 2, HEIGHT / 2}, e->mouse, C_YELLOW);
-	// map->width = map->height;
-	// camera->pos = vect(50, 50, 50);
-	// t_vector dir = vnor(vect(-1, -1, -1));
-	// for (int x = 0; x < map->width; x++) {
-	// 	for (int y = 0; y < map->height; y++) {
-	// 		t_vector point = vmul(vect(x, y, 0), 10);
-	// 		t_vector normal = vmul(dir, vdot(dir, point));
-	// 		t_vector result = vsub(point, normal);
-	// 		t_vector center = vsub(result, camera->pos);
-	// 	}
-	// }
-	// e++;
+	camera->pos = vect(50, 50, 50);
+	camera->rot = vect(45, 35.26438968, 45);
+	for (int x = 0; x < map->width; x++) {
+		for (int y = 0; y < map->height; y++) {
+			t_vector point = vmul(vect(x, y, map->map[map->width * y + x]), 10);
+			double a = camera->rot.x;
+			double b = camera->rot.y;
+			double r = camera->rot.z;
+			cos(a) * cos(r) + sin(a) * sin(b) * sin(r)
+			// t_vector normal = vmul(dir, vdot(dir, point));
+			// t_vector result = vsub(point, normal);
+			// t_vector center = vsub(result, camera->pos);
+		}
+	}
+	e++;
 }
 
 int	render_next_frame(t_data *data)
@@ -70,7 +72,8 @@ int	main(int argc, char *argv[])
 		exit(1);
 	data.camera.zoom = 10;
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "fdf");
-	data.img.obj = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	data.img.size = (t_point){WIDTH, HEIGHT};
+	data.img.obj = mlx_new_image(data.mlx, data.img.size.x, data.img.size.y);
 	data.img.addr = mlx_get_data_addr(data.img.obj, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
 	mlx_put_image_to_window(data.mlx, data.win, data.img.obj, 0, 0);
 	mlx_key_hook(data.win, (int (*)(void *))key_down_events, &data);

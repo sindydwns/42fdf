@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/16 22:51:43 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/17 02:58:42 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "mlx.h"
 # include "draw.h"
 # include "vector.h"
+# include "math.h"
 #include			<stdio.h>
 
 typedef struct s_map
