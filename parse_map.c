@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/13 18:45:54 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/17 02:44:26 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,39 +58,42 @@ static int	get_width(const char *path)
 	return (width);
 }
 
-static void	init(t_map *m, const char *path)
+static void	parse(t_map *m, int fd)
 {
-	m->height = get_height(path);
-	m->width = get_width(path);
-	m->map = malloc(sizeof(int) * m->width * m->height);
-	if (m->map == 0)
-		exit(1);
+	int		x;
+	int		y;
+	char	*line;
+	char	**col;
+
+	line = get_next_line(fd);
+	y = 0;
+	while (line)
+	{
+		col = ft_split(line, ' ');
+		x = 0;
+		while (col[x])
+		{
+			m->map[m->width * y + x] = ft_atoi(col[x]);
+			free(col[x++]);
+		}
+		free(line);
+		line = get_next_line(fd);
+		y++;
+	}
 }
 
 int	parse_map(const char *path, t_map *m)
 {
 	const int	fd = open(path, O_RDONLY);
-	char		*line;
-	char		**col;
 
 	if (fd < 0)
 		exit(1);
-	init(m, path);
-	line = get_next_line(fd);
-	m->height = 0;
-	while (line)
-	{
-		col = ft_split(line, ' ');
-		m->width = 0;
-		while (col[m->width])
-		{
-			m->map[m->height * m->width + m->width] = ft_atoi(col[m->width]);
-			free(col[m->width++]);
-		}
-		free(line);
-		line = get_next_line(fd);
-		m->height++;
-	}
+	m->height = get_height(path);
+	m->width = get_width(path);
+	m->map = malloc(sizeof(int) * m->width * m->height);
+	if (m->map == 0)
+		exit(1);
+	parse(m, fd);
 	close(fd);
 	return (0);
 }
