@@ -2,6 +2,7 @@ fdf
 .vscode/
 .DS_Store
 *.fdf
+test_maps/
 
 ### C ###
 # Prerequisites
