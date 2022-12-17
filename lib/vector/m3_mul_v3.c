@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vsum4.c                                            :+:      :+:    :+:   */
+/*   m3_mul_v3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/17 16:09:26 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/17 16:28:24 by yonshin          ###   ########.fr       */
+/*   Created: 2022/12/17 16:48:38 by yonshin           #+#    #+#             */
+/*   Updated: 2022/12/17 17:46:45 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-t_vector4	vsum4(t_vector4 v1, t_vector4 v2)
+t_vector3	m3_mul_v3(t_matrix3 m1, t_vector3 v1)
 {
-	return ((t_vector4){v1.x + v2.x, v1.y + v2.y, v1.z + v2.z, v1.w + v2.w});
+	return ((t_vector3){
+	});
 }
