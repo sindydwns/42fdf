@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vnor.c                                             :+:      :+:    :+:   */
+/*   vsum.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/08 08:28:00 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/08 08:34:38 by yonshin          ###   ########.fr       */
+/*   Created: 2022/12/08 07:52:37 by yonshin           #+#    #+#             */
+/*   Updated: 2022/12/17 16:03:38 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-t_vector	vnor(t_vector v1)
+t_vector3	vsum3(t_vector3 v1, t_vector3 v2)
 {
-	const double	mag = vmag(v1);
-
-	if (mag == 0)
-		return ((t_vector){0, 0, 0});
-	return (vmul(v1, 1 / mag));
+	return ((t_vector3){v1.x + v2.x, v1.y + v2.y, v1.z + v2.z});
 }

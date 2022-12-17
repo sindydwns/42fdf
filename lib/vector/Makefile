@@ -6,7 +6,7 @@
 #    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 07:41:41 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/08 08:41:20 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/17 16:23:46 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,22 @@ NAME = libvector.a
 CFLAGS = -Wall -Wextra -Werror
 ARFLAGS = rc
 OBJS = \
-	vect.o \
-	vsum.o \
-	vsub.o \
-	vrev.o \
-	vmul.o \
-	vpdt.o \
-	vdot.o \
-	vmag.o \
-	vnor.o \
+	vect3.o \
+	vsum3.o \
+	vsub3.o \
+	vrev3.o \
+	vmul3.o \
+	vdot3.o \
+	vmag3.o \
+	vnor3.o \
+	vect4.o \
+	vsum4.o \
+	vsub4.o \
+	vrev4.o \
+	vmul4.o \
+	vdot4.o \
+	vmag4.o \
+	vnor4.o \
 
 INCLUDE =
 

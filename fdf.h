@@ -6,13 +6,17 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/17 02:58:42 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/17 16:01:07 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # define KEY_ESC 53
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
 # include <stdlib.h>
 # include "mlx.h"
 # include "draw.h"
@@ -29,8 +33,8 @@ typedef struct s_map
 
 typedef struct s_camera
 {
-	t_vector	pos;
-	t_vector	rot;
+	t_vector3	pos;
+	t_vector3	rot;
 	int			zoom;
 }	t_camera;
 
