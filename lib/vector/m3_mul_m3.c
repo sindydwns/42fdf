@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   m3_mul_m3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 16:48:38 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/17 17:40:27 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/18 18:26:26 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
-
-static double	one_value(t_vector3 v1, t_vector3 v2)
-{
-	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
-}
 
 /*
 | a11 a12 a13 | | b11 b12 b13 |
@@ -29,19 +24,19 @@ static double	one_value(t_vector3 v1, t_vector3 v2)
 t_matrix3	m3_mul_m3(t_matrix3 m1, t_matrix3 m2)
 {
 	const t_vector3	v1 = (t_vector3){
-		one_value((t_vector3){m1.v1.x, m1.v2.x, m1.v3.x}, m2.v1),
-		one_value((t_vector3){m1.v1.y, m1.v2.y, m1.v3.y}, m2.v1),
-		one_value((t_vector3){m1.v1.z, m1.v2.z, m1.v3.z}, m2.v1)
+		vdot3((t_vector3){m1.v1.x, m1.v2.x, m1.v3.x}, m2.v1),
+		vdot3((t_vector3){m1.v1.y, m1.v2.y, m1.v3.y}, m2.v1),
+		vdot3((t_vector3){m1.v1.z, m1.v2.z, m1.v3.z}, m2.v1)
 	};
 	const t_vector3	v2 = (t_vector3){
-		one_value((t_vector3){m1.v1.x, m1.v2.x, m1.v3.x}, m2.v2),
-		one_value((t_vector3){m1.v1.y, m1.v2.y, m1.v3.y}, m2.v2),
-		one_value((t_vector3){m1.v1.z, m1.v2.z, m1.v3.z}, m2.v2)
+		vdot3((t_vector3){m1.v1.x, m1.v2.x, m1.v3.x}, m2.v2),
+		vdot3((t_vector3){m1.v1.y, m1.v2.y, m1.v3.y}, m2.v2),
+		vdot3((t_vector3){m1.v1.z, m1.v2.z, m1.v3.z}, m2.v2)
 	};
 	const t_vector3	v3 = (t_vector3){
-		one_value((t_vector3){m1.v1.x, m1.v2.x, m1.v3.x}, m2.v3),
-		one_value((t_vector3){m1.v1.y, m1.v2.y, m1.v3.y}, m2.v3),
-		one_value((t_vector3){m1.v1.z, m1.v2.z, m1.v3.z}, m2.v3)
+		vdot3((t_vector3){m1.v1.x, m1.v2.x, m1.v3.x}, m2.v3),
+		vdot3((t_vector3){m1.v1.y, m1.v2.y, m1.v3.y}, m2.v3),
+		vdot3((t_vector3){m1.v1.z, m1.v2.z, m1.v3.z}, m2.v3)
 	};
 
 	return ((t_matrix3){v1, v2, v3});

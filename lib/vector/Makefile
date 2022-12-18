@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
+#    By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 07:41:41 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/17 16:23:46 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/18 13:57:22 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,10 @@ OBJS = \
 	vdot4.o \
 	vmag4.o \
 	vnor4.o \
+	m3_mul_m3.o \
+	m3_mul_v3.o \
+	m4_mul_m4.o \
+	m4_mul_v4.o \
 
 INCLUDE =
 

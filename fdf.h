@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/17 16:01:07 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/18 14:26:08 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # define KEY_A 0
 # define KEY_S 1
 # define KEY_D 2
+# define KEY_R 15
+# define KEY_F 3
+# define KEY_Q 12
+# define KEY_E 14
 # include <stdlib.h>
 # include "mlx.h"
 # include "draw.h"
@@ -35,7 +39,7 @@ typedef struct s_camera
 {
 	t_vector3	pos;
 	t_vector3	rot;
-	int			zoom;
+	double		zoom;
 }	t_camera;
 
 typedef struct s_extra
