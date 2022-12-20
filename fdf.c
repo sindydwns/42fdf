@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/18 20:30:43 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/20 13:24:06 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	render_frame(t_img *img, t_map *map, t_camera *camera, t_extra *e)
 	camera->rot.x += 1;
 	t_matrix4 move = get_move_matrix(vrev3(camera->pos));
 	t_matrix4 rotate = get_rotate_matrix(vrev3(camera->rot));
-	t_matrix4 xxx = m4_mul_m4(rotate, move);
+	// t_matrix4 xxx = m4_mul_m4(rotate, move);
+	t_matrix4 xxx = m4_mul_m4(move, rotate);
 	t_vector3 *new_map = malloc(sizeof(t_vector3) * map->height * map->width);
 	for (int y = 0; y < map->height; y++) {
 		for (int x = 0; x < map->width; x++) {

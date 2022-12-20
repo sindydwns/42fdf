@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/18 14:26:08 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/20 12:00:44 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ typedef struct s_map
 	int	width;
 	int	height;
 }	t_map;
+
+typedef struct s_obj
+{
+	t_vector3	pos;
+	t_vector3	rot;
+	t_vector3	scl;
+}	t_obj;
 
 typedef struct s_camera
 {
