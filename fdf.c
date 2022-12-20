@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/20 20:36:44 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/20 21:44:04 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	render_frame(t_img *img, t_map *map, t_camera *cam, t_extra *e)
 	// cam->tzoom = cam->zoom;
 	// cam->trot = cam->rot;
 	cam->tzoom = cam->tzoom * DEFER + cam->zoom * (1 - DEFER);
-	cam->trot = vsum3(vmul3(cam->rot, DEFER), vmul3(cam->rot, 1 - DEFER));
+	cam->trot = vsum3(vmul3(cam->trot, DEFER), vmul3(cam->rot, 1 - DEFER));
 	t_matrix4 move = get_move_matrix(vrev3(cam->pos));
 	t_matrix4 rotate = get_rotate_matrix(vrev3(cam->trot));
 	// t_matrix4 xxx = m4_mul_m4(rotate, move);
@@ -107,7 +107,6 @@ int	render_frame(t_img *img, t_map *map, t_camera *cam, t_extra *e)
 				t_point b = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2};
 				draw_line(img, a, b, C_YELLOW);
 			}
-			draw_pixel(img, a, C_WHITE);
 		}
 	}
 	free(new_map);
