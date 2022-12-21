@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/21 02:15:48 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/21 16:27:57 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,24 +99,24 @@ int zsum = 0;
 	for (int y = 0; y < map->height; y++) {
 		for (int x = 0; x < map->width; x++) {
 			t_vector3 *point = new_map + (y * map->width + x);
-			t_point a = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2};
+			t_point a = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2, C_YELLOW};
 			if (point->z < 0)
 				continue;
 			if (x < map->width - 1)
 			{
 				point = new_map + (y * map->width + x + 1);
-				t_point b = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2};
-				draw_line(img, a, b, C_YELLOW);
+				t_point b = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2, C_YELLOW};
+				draw_line(img, a, b);
 			}
 			if (y < map->height - 1)
 			{
 				point = new_map + ((y + 1) * map->width + x);
-				t_point b = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2};
-				draw_line(img, a, b, C_YELLOW);
+				t_point b = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2, C_YELLOW};
+				draw_line(img, a, b);
 			}
 			for (int xx = -3; xx < 3; xx++)
 				for (int yy = -3; yy < 3; yy++)
-					draw_pixel(img, (t_point){a.x + xx, a.y + yy}, point->z < zsum ? C_GREEN : C_RED);
+					draw_pixel(img, (t_point){a.x + xx, a.y + yy, point->z < zsum ? C_GREEN : C_RED});
 		}
 	}
 	free(new_map);
@@ -192,7 +192,7 @@ int	main(int argc, char *argv[])
 	data.camera.pos.z = -100000;
 	data.camera.zoom = 10;
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "fdf");
-	data.img.size = (t_point){WIDTH, HEIGHT};
+	data.img.size = (t_point){WIDTH, HEIGHT, 0};
 	data.img.obj = mlx_new_image(data.mlx, data.img.size.x, data.img.size.y);
 	data.img.addr = mlx_get_data_addr(data.img.obj, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);
 	mlx_put_image_to_window(data.mlx, data.win, data.img.obj, 0, 0);

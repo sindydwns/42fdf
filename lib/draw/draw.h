@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:06 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/17 03:37:36 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/21 16:29:54 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_point
 {
 	int	x;
 	int	y;
+	int c;
 }	t_point;
 
 typedef struct s_img {
@@ -46,9 +47,9 @@ typedef struct s_option
 	int	color;
 }	t_option;
 
-int	draw_pixel(t_img *target, t_point point, int color);
-int	draw_line(t_img *target, t_point start, t_point end, int color);
-int	draw_rect(t_img *target, t_point start, t_point end, int color);
-int	draw_circle(t_img *target, t_point center, int radius, int color);
+int	draw_pixel(t_img *target, t_point point);
+int	draw_line(t_img *target, t_point start, t_point end);
+int	draw_rect(t_img *target, t_point start, t_point end);
+int	draw_circle(t_img *target, t_point center, int radius);
 
 #endif

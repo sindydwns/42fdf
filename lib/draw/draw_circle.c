@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_circle.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 19:07:57 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/07 15:14:11 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/21 16:18:29 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static double	distance(t_point a, t_point b)
 	return (sqrt(dx * dx + dy * dy));
 }
 
-int	draw_circle(t_img *target, t_point center, int radius, int color)
+int	draw_circle(t_img *target, t_point center, int radius)
 {
 	t_point	curr;
 	t_point	end;
@@ -36,8 +36,8 @@ int	draw_circle(t_img *target, t_point center, int radius, int color)
 		x = curr.x;
 		while (x != end.x)
 		{
-			if (distance(center, (t_point){x, curr.y}) < radius)
-				draw_pixel(target, (t_point){x, curr.y}, color);
+			if (distance(center, (t_point){x, curr.y, center.c}) < radius)
+				draw_pixel(target, (t_point){x, curr.y, center.c});
 			x++;
 		}
 		curr.y++;
