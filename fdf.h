@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/20 20:15:53 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/22 02:22:13 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,19 @@
 # include "math.h"
 #include			<stdio.h>
 
-typedef struct s_map
+typedef struct s_line
 {
-	int	*map;
-	int	width;
-	int	height;
-}	t_map;
+	int	s;
+	int	e;
+}	t_line;
 
 typedef struct s_obj
 {
+	t_vector3	*d;
+	t_vector3	*dots;
+	int			dot_len;
+	t_line		*lines;
+	int			line_len;
 	t_vector3	pos;
 	t_vector3	rot;
 	t_vector3	scl;
@@ -69,13 +73,12 @@ typedef struct s_data
 	void				*win;
 	unsigned long long	frame;
 	t_img				img;
-	t_map				map;
 	t_camera			camera;
 	t_extra				extra;
+	t_obj				*map;
 }	t_data;
 
-int		parse_map(const char *path, t_map *map);
-void	destroy_map(t_map *map);
-int		mapv(t_map *map, int x, int y);
+t_obj	*create_map(const char *path);
+void	destroy_map(t_obj *map);
 
 #endif

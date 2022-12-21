@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/17 02:44:26 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/22 02:52:29 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "fdf.h"
 #include "libft.h"
+#include "myutil.h"
 
 static int	get_height(const char *path)
 {
@@ -58,42 +59,52 @@ static int	get_width(const char *path)
 	return (width);
 }
 
-static void	parse(t_map *m, int fd)
+static void	parse(t_obj *obj, int fd, int w, int h)
 {
-	int		x;
-	int		y;
-	char	*line;
-	char	**col;
+	const t_vector3	t = (t_vector3){((double)w) / 2, ((double)h) / 2, 0};
+	t_point			p;
+	char			*line;
+	char			**col;
 
 	line = get_next_line(fd);
-	y = 0;
+	p = (t_point){0, 0, 0};
 	while (line)
 	{
 		col = ft_split(line, ' ');
-		x = 0;
-		while (col[x])
+		p.x = 0;
+		while (col[p.x])
 		{
-			m->map[m->width * y + x] = ft_atoi(col[x]);
-			free(col[x++]);
+			obj->dots[w * p.y + p.x] = (t_vector3){
+				p.x - t.x, p.y - t.y, ft_atoi(col[p.x])};
+			if (p.x < w - 1)
+				obj->lines[p.c++] = (t_line){w * p.y + p.x, w * p.y + (p.x + 1)};
+			if (p.y < h - 1)
+				obj->lines[p.c++] = (t_line){w * p.y + p.x, w * (p.y + 1) + p.x};
+			free(col[p.x++]);
 		}
 		free(line);
 		line = get_next_line(fd);
-		y++;
+		p.y++;
 	}
 }
 
-int	parse_map(const char *path, t_map *m)
+t_obj	*create_map(const char *path)
 {
 	const int	fd = open(path, O_RDONLY);
+	const int	height = get_height(path);
+	const int	width = get_width(path);
+	const int	line_cnt = (width - 1) * height + (height - 1) * width;
+	t_obj		*res;
 
-	if (fd < 0)
-		exit(1);
-	m->height = get_height(path);
-	m->width = get_width(path);
-	m->map = malloc(sizeof(int) * m->width * m->height);
-	if (m->map == 0)
-		exit(1);
-	parse(m, fd);
-	close(fd);
-	return (0);
+	if (width < 1 || height < 0)
+		err_exit(ERR_PARAM);
+	res = ft_calloc_guard(sizeof(t_obj));
+	res->dots = ft_calloc_guard(sizeof(t_vector3) * width * height);
+	res->d = ft_calloc_guard(sizeof(t_vector3) * width * height);
+	res->dot_len = width * height;
+	res->lines = ft_calloc_guard(sizeof(t_vector3) * line_cnt);
+	res->line_len = line_cnt;
+	parse(res, fd, width, height);
+	printf("line len : %d\n",res->line_len);
+	return (res);
 }

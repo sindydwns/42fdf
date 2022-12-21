@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/21 16:27:57 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/22 02:22:32 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_matrix4	get_rotate_matrix(t_vector3 v)
 	});
 }
 
-int	render_frame(t_img *img, t_map *map, t_camera *cam, t_extra *e)
+int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 {
 	// cam->tzoom = cam->zoom;
 	// cam->trot = cam->rot;
@@ -78,48 +78,19 @@ int	render_frame(t_img *img, t_map *map, t_camera *cam, t_extra *e)
 	t_matrix4 rotate = get_rotate_matrix(vrev3(cam->trot));
 	// t_matrix4 xxx = m4_mul_m4(rotate, move);
 	t_matrix4 xxx = m4_mul_m4(move, rotate);
-	t_vector3 *new_map = malloc(sizeof(t_vector3) * map->height * map->width);
 
-int zsum = 0;
-
-	for (int y = 0; y < map->height; y++) {
-		for (int x = 0; x < map->width; x++) {
-			t_vector3 *point = new_map + (y * map->width + x);
-			*point = vmul3(vect3(x, y, map->map[map->width * y + x]), cam->tzoom);
-			point->x -= map->width / 2 * cam->tzoom;
-			point->y -= map->height / 2 * cam->tzoom;
-			t_vector4 res = m4_mul_v4(xxx, vect4(point->x, point->y, point->z, 1));
-			*point = vect3(-res.x, res.y, res.z);
-			zsum += res.z;
-		}
+	for (int i = 0; i < map->dot_len; i++) {
+		t_vector3 point = map->dots[i];
+		t_vector4 res = m4_mul_v4(xxx, vect4(point.x, point.y, point.z, 1));
+		map->d[i] = vect3(-res.x, res.y, res.z);
 	}
 
-	zsum /= map->height * map->width;
-
-	for (int y = 0; y < map->height; y++) {
-		for (int x = 0; x < map->width; x++) {
-			t_vector3 *point = new_map + (y * map->width + x);
-			t_point a = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2, C_YELLOW};
-			if (point->z < 0)
-				continue;
-			if (x < map->width - 1)
-			{
-				point = new_map + (y * map->width + x + 1);
-				t_point b = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2, C_YELLOW};
-				draw_line(img, a, b);
-			}
-			if (y < map->height - 1)
-			{
-				point = new_map + ((y + 1) * map->width + x);
-				t_point b = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2, C_YELLOW};
-				draw_line(img, a, b);
-			}
-			for (int xx = -3; xx < 3; xx++)
-				for (int yy = -3; yy < 3; yy++)
-					draw_pixel(img, (t_point){a.x + xx, a.y + yy, point->z < zsum ? C_GREEN : C_RED});
-		}
+	for (int i = 0; i < map->line_len; i++) {
+		t_line line = map->lines[i];
+		t_vector3 s = map->d[line.s];
+		t_vector3 e = map->d[line.e];
+		draw_line(img, (t_point){s.x, s.y, C_YELLOW}, (t_point){e.x, e.y, C_YELLOW});
 	}
-	free(new_map);
 	e++	;
 	return (0);
 }
@@ -130,7 +101,7 @@ int	render_next_frame(t_data *data)
 	data->camera.rot.y += 1;
 	mlx_mouse_get_pos(data->win, &data->extra.mouse.x, &data->extra.mouse.y);
 	ft_memset(data->img.addr, 0, WIDTH * HEIGHT * data->img.bits_per_pixel / 8);
-	render_frame(&data->img, &data->map, &data->camera, &data->extra);
+	render_frame(&data->img, data->map, &data->camera, &data->extra);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.obj, 0, 0);
 	return (0);
 }
@@ -187,8 +158,9 @@ int	main(int argc, char *argv[])
 		exit(1);
 	ft_memset(&data, 0, sizeof(data));
 	data.mlx = mlx_init();
-	if (data.mlx == 0 || parse_map(argv[1], &data.map))
+	if (data.mlx == 0)
 		exit(1);
+	data.map = create_map(argv[1]);
 	data.camera.pos.z = -100000;
 	data.camera.zoom = 10;
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "fdf");

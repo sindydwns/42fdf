@@ -6,15 +6,16 @@
 /*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:41 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/08 01:53:58 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/22 02:06:48 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	destroy_map(t_map *map)
+void	destroy_map(t_obj *map)
 {
-	// 다시 만들어야 함
-	free(map->map);
+	free(map->d);
+	free(map->dots);
+	free(map->lines);
 	free(map);
 }

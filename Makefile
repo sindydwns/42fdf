@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
+#    By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 20:46:00 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/13 18:44:11 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/22 02:07:33 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,14 +17,14 @@ LIB = \
 	./lib/draw/libdraw.a \
 	./lib/vector/libvector.a \
 	./lib/libft/libft.a \
+	./lib/myutil/libutil.a \
 
 INCLUDE = $(addprefix -I, $(dir $(LIB))) -I$(dir $(MLXLIB))
 LIBDUP = $(notdir $(LIB)) $(notdir $(MLXLIB))
 OBJS = \
 	fdf.o \
-	parse_map.o \
+	create_map.o \
 	destroy_map.o \
-	mapv.o \
 
 all: $(NAME) 
 
