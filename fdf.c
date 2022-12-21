@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/20 21:44:04 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/21 02:15:48 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,9 @@ int	render_frame(t_img *img, t_map *map, t_camera *cam, t_extra *e)
 	// t_matrix4 xxx = m4_mul_m4(rotate, move);
 	t_matrix4 xxx = m4_mul_m4(move, rotate);
 	t_vector3 *new_map = malloc(sizeof(t_vector3) * map->height * map->width);
+
+int zsum = 0;
+
 	for (int y = 0; y < map->height; y++) {
 		for (int x = 0; x < map->width; x++) {
 			t_vector3 *point = new_map + (y * map->width + x);
@@ -86,9 +89,13 @@ int	render_frame(t_img *img, t_map *map, t_camera *cam, t_extra *e)
 			point->x -= map->width / 2 * cam->tzoom;
 			point->y -= map->height / 2 * cam->tzoom;
 			t_vector4 res = m4_mul_v4(xxx, vect4(point->x, point->y, point->z, 1));
-			*point = vect3(res.x, res.y, res.z);
+			*point = vect3(-res.x, res.y, res.z);
+			zsum += res.z;
 		}
 	}
+
+	zsum /= map->height * map->width;
+
 	for (int y = 0; y < map->height; y++) {
 		for (int x = 0; x < map->width; x++) {
 			t_vector3 *point = new_map + (y * map->width + x);
@@ -107,6 +114,9 @@ int	render_frame(t_img *img, t_map *map, t_camera *cam, t_extra *e)
 				t_point b = (t_point){point->x + WIDTH / 2, point->y + HEIGHT / 2};
 				draw_line(img, a, b, C_YELLOW);
 			}
+			for (int xx = -3; xx < 3; xx++)
+				for (int yy = -3; yy < 3; yy++)
+					draw_pixel(img, (t_point){a.x + xx, a.y + yy}, point->z < zsum ? C_GREEN : C_RED);
 		}
 	}
 	free(new_map);
