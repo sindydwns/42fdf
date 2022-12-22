@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/22 20:53:50 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/22 21:54:38 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,26 +80,28 @@ t_matrix4	get_scale_matrix(double v)
 
 int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 {
-	// cam->tzoom = cam->zoom;
-	// cam->trot = cam->rot;
 	cam->tzoom = cam->tzoom * DEFER + cam->zoom * (1 - DEFER);
 	cam->trot = vsum3(vmul3(cam->trot, DEFER), vmul3(cam->rot, 1 - DEFER));
 	t_matrix4 move = get_move_matrix(vrev3(cam->pos));
 	t_matrix4 rotate = get_rotate_matrix(vrev3(cam->trot));
 	t_matrix4 scale = get_scale_matrix(cam->tzoom);
-	// t_matrix4 xxx = m4_mul_m4(rotate, move);
 	t_matrix4 xxx = m4_mul_m4(scale, m4_mul_m4(move, rotate));
 
 	for (int i = 0; i < map->dot_len; i++) {
 		t_vector3 point = map->dots[i];
+		t_matrix4 o_move = get_move_matrix(vrev3(map->pos));
+		t_matrix4 o_rotate = get_rotate_matrix(vrev3(map->rot));
+		t_matrix4 o_scale = get_scale_matrix(map->scl);
 		t_vector4 res = m4_mul_v4(xxx, vect4(point.x, point.y, point.z, 1));
-		map->d[i] = vect3(-res.x, res.y, res.z);
+		map->d[i] = vect3(res.x + WIDTH / 2, res.y + HEIGHT / 2, res.z);
 	}
 
 	for (int i = 0; i < map->line_len; i++) {
 		t_line line = map->lines[i];
 		t_vector3 s = map->d[line.s];
 		t_vector3 e = map->d[line.e];
+		if (s.z > 0 || e.z > 0)
+			continue;
 		draw_line(img, (t_point){s.x, s.y, C_YELLOW}, (t_point){e.x, e.y, C_YELLOW});
 	}
 	e++	;
@@ -172,7 +174,7 @@ int	main(int argc, char *argv[])
 	if (data.mlx == 0)
 		exit(1);
 	data.map = create_map(argv[1]);
-	data.camera.pos.z = -100000;
+	data.camera.pos.z = 100000;
 	data.camera.zoom = 10;
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "fdf");
 	data.img.size = (t_point){WIDTH, HEIGHT, 0};
