@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/22 21:54:38 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/22 23:23:50 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ t_matrix4	get_rotate_matrix(t_vector3 v)
 	});
 }
 
-t_matrix4	get_scale_matrix(double v)
+t_matrix4	get_scale_matrix(t_vector3 v)
 {
 	return ((t_matrix4){
-		(t_vector4){v, 0, 0, 0},
-		(t_vector4){0, v, 0, 0},
-		(t_vector4){0, 0, v, 0},
-		(t_vector4){0, 0, 0, v},
+		(t_vector4){v.x, 0, 0, 0},
+		(t_vector4){0, v.y, 0, 0},
+		(t_vector4){0, 0, v.z, 0},
+		(t_vector4){0, 0, 0, 1},
 	});
 }
 
@@ -84,7 +84,7 @@ int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 	cam->trot = vsum3(vmul3(cam->trot, DEFER), vmul3(cam->rot, 1 - DEFER));
 	t_matrix4 move = get_move_matrix(vrev3(cam->pos));
 	t_matrix4 rotate = get_rotate_matrix(vrev3(cam->trot));
-	t_matrix4 scale = get_scale_matrix(cam->tzoom);
+	t_matrix4 scale = get_scale_matrix((t_vector3){cam->zoom, cam->zoom, cam->zoom});
 	t_matrix4 xxx = m4_mul_m4(scale, m4_mul_m4(move, rotate));
 
 	for (int i = 0; i < map->dot_len; i++) {
@@ -92,6 +92,8 @@ int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 		t_matrix4 o_move = get_move_matrix(vrev3(map->pos));
 		t_matrix4 o_rotate = get_rotate_matrix(vrev3(map->rot));
 		t_matrix4 o_scale = get_scale_matrix(map->scl);
+		t_matrix4 yyy = m4_mul_m4(o_scale, m4_mul_m4(o_move, o_rotate));
+		yyy.v1.w = 0;
 		t_vector4 res = m4_mul_v4(xxx, vect4(point.x, point.y, point.z, 1));
 		map->d[i] = vect3(res.x + WIDTH / 2, res.y + HEIGHT / 2, res.z);
 	}
@@ -111,7 +113,7 @@ int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 int	render_next_frame(t_data *data)
 {
 	data->frame++;
-	data->camera.rot.y += 1;
+	// data->camera.rot.y += 1;
 	mlx_mouse_get_pos(data->win, &data->extra.mouse.x, &data->extra.mouse.y);
 	ft_memset(data->img.addr, 0, WIDTH * HEIGHT * data->img.bits_per_pixel / 8);
 	render_frame(&data->img, data->map, &data->camera, &data->extra);
@@ -174,7 +176,7 @@ int	main(int argc, char *argv[])
 	if (data.mlx == 0)
 		exit(1);
 	data.map = create_map(argv[1]);
-	data.camera.pos.z = 100000;
+	data.camera.pos.z = 1;
 	data.camera.zoom = 10;
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "fdf");
 	data.img.size = (t_point){WIDTH, HEIGHT, 0};
