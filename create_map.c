@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/22 02:52:29 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/22 19:33:53 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,5 @@ t_obj	*create_map(const char *path)
 	res->lines = ft_calloc_guard(sizeof(t_vector3) * line_cnt);
 	res->line_len = line_cnt;
 	parse(res, fd, width, height);
-	printf("line len : %d\n",res->line_len);
 	return (res);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/22 02:22:32 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/22 20:53:50 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,16 @@ t_matrix4	get_rotate_matrix(t_vector3 v)
 	});
 }
 
+t_matrix4	get_scale_matrix(double v)
+{
+	return ((t_matrix4){
+		(t_vector4){v, 0, 0, 0},
+		(t_vector4){0, v, 0, 0},
+		(t_vector4){0, 0, v, 0},
+		(t_vector4){0, 0, 0, v},
+	});
+}
+
 int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 {
 	// cam->tzoom = cam->zoom;
@@ -76,8 +86,9 @@ int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 	cam->trot = vsum3(vmul3(cam->trot, DEFER), vmul3(cam->rot, 1 - DEFER));
 	t_matrix4 move = get_move_matrix(vrev3(cam->pos));
 	t_matrix4 rotate = get_rotate_matrix(vrev3(cam->trot));
+	t_matrix4 scale = get_scale_matrix(cam->tzoom);
 	// t_matrix4 xxx = m4_mul_m4(rotate, move);
-	t_matrix4 xxx = m4_mul_m4(move, rotate);
+	t_matrix4 xxx = m4_mul_m4(scale, m4_mul_m4(move, rotate));
 
 	for (int i = 0; i < map->dot_len; i++) {
 		t_vector3 point = map->dots[i];
