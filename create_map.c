@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/22 19:33:53 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/23 01:59:15 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	parse(t_obj *obj, int fd, int w, int h)
 	{
 		col = ft_split(line, ' ');
 		p.x = 0;
-		while (col[p.x])
+		while (col[p.x] && *col[p.x] != '\n')
 		{
 			obj->dots[w * p.y + p.x] = (t_vector3){
 				p.x - t.x, p.y - t.y, ft_atoi(col[p.x])};

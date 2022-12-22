@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/22 02:22:13 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/23 02:36:45 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@
 # define KEY_RIGHT 124
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
+
+# define MAX_KEYCODE 200
+
+enum {
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_DESTROY = 17
+};
+
 # define DEFER 0.85
 # include <stdlib.h>
 # include "mlx.h"
@@ -56,6 +68,7 @@ typedef struct s_obj
 typedef struct s_camera
 {
 	t_vector3	pos;
+	t_vector3	tpos;
 	t_vector3	rot;
 	t_vector3	trot;
 	double		zoom;
@@ -65,6 +78,7 @@ typedef struct s_camera
 typedef struct s_extra
 {
 	t_point	mouse;
+	int		key[200];
 }	t_extra;
 
 typedef struct s_data
@@ -74,7 +88,7 @@ typedef struct s_data
 	unsigned long long	frame;
 	t_img				img;
 	t_camera			camera;
-	t_extra				extra;
+	t_extra				ex;
 	t_obj				*map;
 }	t_data;
 
