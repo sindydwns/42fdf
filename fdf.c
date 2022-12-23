@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/23 03:17:51 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/23 19:09:34 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,27 @@ int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 	cam->tpos = vsum3(vmul3(cam->tpos, DEFER), vmul3(cam->pos, 1 - DEFER));
 	cam->trot = vsum3(vmul3(cam->trot, DEFER), vmul3(cam->rot, 1 - DEFER));
 	cam->tzoom = cam->tzoom * DEFER + cam->zoom * (1 - DEFER);
-	t_matrix4 move = get_move_matrix(vrev3(cam->tpos));
-	t_matrix4 rotate = get_rotate_matrix(vrev3(cam->trot));
-	t_matrix4 scale = get_scale_matrix((t_vector3){cam->tzoom, cam->tzoom, cam->tzoom});
-	t_matrix4 xxx = m4_mul_m4(scale, m4_mul_m4(move, rotate));
+	
+	// t_matrix4 move = get_move_matrix(vrev3(cam->tpos));
+	// t_matrix4 rotate = get_rotate_matrix(vrev3(cam->trot));
+	// t_matrix4 scale = get_scale_matrix((t_vector3){cam->tzoom, cam->tzoom, cam->tzoom});
+	// t_matrix4 xxx = m4_mul_m4(scale, m4_mul_m4(move, rotate));
 
+	// TODO : 물체에 대한 회전을 연습한 다음 기저 벡터를 바꿔 다시 다시 회전시키고 이동해보며 축이 잘 바뀌었는지 확인하기
+	t_matrix4 o_move = get_move_matrix(map->pos);
+	t_matrix4 o_rotate = get_rotate_matrix(map->rot);
+	t_matrix4 o_scale = get_scale_matrix(map->scl);
+	t_matrix4 yyy = m4_mul_m4(o_scale, m4_mul_m4(o_move, o_rotate));
+
+	// t_matrix4 mat = m4_mul_m4(xxx, yyy);
+	t_matrix4 mat = yyy;
+
+	// printf("%f %f %f\n", map->pos.x, map->pos.y, map->pos.z);
+	// printf("%f %f %f\n", map->rot.x, map->rot.y, map->rot.z);
+	// printf("%f %f %f\n\n", map->scl.x, map->scl.y, map->scl.z);
 	for (int i = 0; i < map->dot_len; i++) {
 		t_vector3 point = map->dots[i];
-		// t_matrix4 o_move = get_move_matrix(vrev3(map->pos));
-		// t_matrix4 o_rotate = get_rotate_matrix(vrev3(map->rot));
-		// t_matrix4 o_scale = get_scale_matrix(map->scl);
-		// t_matrix4 yyy = m4_mul_m4(o_scale, m4_mul_m4(o_move, o_rotate));
-		// yyy.v1.w = 0;
-		t_vector4 res = m4_mul_v4(xxx, vect4(point.x, point.y, point.z, 1));
+		t_vector4 res = m4_mul_v4(mat, vect4(point.x, point.y, point.z, 1));
 		map->d[i] = vect3(res.x + WIDTH / 2, res.y + HEIGHT / 2, res.z);
 	}
 
@@ -107,6 +115,8 @@ int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 			continue;
 		draw_line(img, (t_point){s.x, s.y, C_YELLOW}, (t_point){e.x, e.y, C_YELLOW});
 	}
+	draw_line(img, (t_point){0, HEIGHT / 2, C_WHITE}, (t_point){WIDTH, HEIGHT / 2});
+	draw_line(img, (t_point){WIDTH / 2, 0, C_WHITE}, (t_point){WIDTH / 2, HEIGHT});
 	e++	;
 	return (0);
 }
