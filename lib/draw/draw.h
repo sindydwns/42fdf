@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:06 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/22 19:58:19 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/23 13:39:31 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_point
 {
 	int	x;
 	int	y;
-	int c;
+	int	c;
 }	t_point;
 
 typedef struct s_img {
