@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/23 01:59:15 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/23 13:47:13 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ t_obj	*create_map(const char *path)
 	res->dot_len = width * height;
 	res->lines = ft_calloc_guard(sizeof(t_vector3) * line_cnt);
 	res->line_len = line_cnt;
+	res->scl = vect3(1, 1, 1);
 	parse(res, fd, width, height);
 	return (res);
 }
