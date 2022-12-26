@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/23 02:36:45 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/26 23:05:09 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # define KEY_ESC 53
+# define KEY_1 18
+# define KEY_2 19
 # define KEY_W 13
 # define KEY_A 0
 # define KEY_S 1
@@ -25,10 +27,11 @@
 # define KEY_DOWN 125
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
+# define KEY_SHIFT 257
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
 
-# define MAX_KEYCODE 200
+# define MAX_KEYCODE 300
 
 enum {
 	ON_KEYDOWN = 2,
@@ -36,7 +39,7 @@ enum {
 	ON_MOUSEDOWN = 4,
 	ON_MOUSEUP = 5,
 	ON_MOUSEMOVE = 6,
-	ON_DESTROY = 17
+	ON_DESTROY = 17,
 };
 
 # define DEFER 0.85
@@ -78,7 +81,7 @@ typedef struct s_camera
 typedef struct s_extra
 {
 	t_point	mouse;
-	int		key[200];
+	int		key[MAX_KEYCODE];
 }	t_extra;
 
 typedef struct s_data

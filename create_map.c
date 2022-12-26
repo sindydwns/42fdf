@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/23 18:41:36 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/26 18:34:47 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	parse(t_obj *obj, int fd, int w, int h)
 		while (col[p.x] && *col[p.x] != '\n')
 		{
 			obj->dots[w * p.y + p.x] = (t_vector3){
-				p.x + 0.5 - t.x, p.y + 0.5 - t.y, ft_atoi(col[p.x])};
+				(p.x + 0.5) - t.x, (p.y + 0.5)- t.y, ft_atoi(col[p.x])};
 			if (p.x < w - 1)
 				obj->lines[p.c++] = (t_line){w * p.y + p.x, w * p.y + (p.x + 1)};
 			if (p.y < h - 1)
