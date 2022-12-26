@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/27 00:52:02 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 04:02:07 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,6 @@ t_matrix4	get_scale_matrix(t_vector3 v)
 
 void	init_camera(t_camera *cam)
 {
-	cam->pos = (t_vector3){-120, -120, -120};
-	// cam->rot = (t_vector3){atan(1 / sqrt(2)) * 180 / M_PI, 0, -45};
-	cam->rot = (t_vector3){-45, atan(1 / sqrt(2)) * 180 / M_PI, 0};
-	// cam->zoom = 5;
 	cam->zoom = 1;
 }
 
@@ -108,8 +104,9 @@ int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 		{0, 0, 0, 1}
 	};
 	t_matrix4 axis_cam_matrix = m4_mul_m4(axis, cam_matrix);
+	// t_matrix4 axis_cam_matrix = cam_matrix;
 	t_matrix4 mat = m4_mul_m4(axis_cam_matrix, obj_matrix);
-	// t_matrix4 mat = obj_matrix;
+	// mat = obj_matrix;
 	
 	printf("map pos: %.2f\t %.2f\t %.2f\t\n", map->pos.x, map->pos.y, map->pos.z);
 	printf("map rot: %.2f\t %.2f\t %.2f\t\n", map->rot.x, map->rot.y, map->rot.z);
@@ -128,7 +125,7 @@ int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 		t_line line = map->lines[i]; 
 		t_vector3 s = map->d[line.s];
 		t_vector3 e = map->d[line.e];
-		if (s.z < 0 || e.z < 0)
+		if (s.z > 0 || e.z > 0)
 			continue;
 		draw_line(img, (t_point){s.x, s.y, C_YELLOW}, (t_point){e.x, e.y, C_YELLOW});
 	}
@@ -180,16 +177,6 @@ int	render_next_frame(t_data *data)
 	}
 	else
 	{
-		if (data->ex.key[KEY_1]) {
-			data->camera.pos.x -= 1;
-			data->camera.pos.y -= 1;
-			data->camera.pos.z -= 1;
-		}
-		if (data->ex.key[KEY_2]) {
-			data->camera.pos.x += 1;
-			data->camera.pos.y += 1;
-			data->camera.pos.z += 1;
-		}
 		if (data->ex.key[KEY_W])
 			data->camera.pos.y += 1;
 		if (data->ex.key[KEY_S])
@@ -214,6 +201,30 @@ int	render_next_frame(t_data *data)
 			data->camera.rot.y -= 1;
 		if (data->ex.key[KEY_RIGHT])
 			data->camera.rot.y += 1;
+	}
+	if (data->ex.key[KEY_1]) {
+		data->camera.pos = (t_vector3){-100, 100, 100};
+		data->camera.rot = (t_vector3){-45, -atan(1 / sqrt(2)) * 180 / M_PI, 0};
+	}
+	if (data->ex.key[KEY_2]) {
+		data->camera.pos = (t_vector3){100, 100, 100};
+		data->camera.rot = (t_vector3){-45, atan(1 / sqrt(2)) * 180 / M_PI, 0};
+	}
+	if (data->ex.key[KEY_DOT]) {
+		data->camera.pos.x -= -(data->camera.pos.x < 0) + (data->camera.pos.x > 0);
+		data->camera.pos.y -= -(data->camera.pos.y < 0) + (data->camera.pos.y > 0);
+		data->camera.pos.z -= -(data->camera.pos.z < 0) + (data->camera.pos.z > 0);
+	}
+	if (data->ex.key[KEY_COMMA]) {
+		data->camera.pos.x += -(data->camera.pos.x < 0) + (data->camera.pos.x > 0);
+		data->camera.pos.y += -(data->camera.pos.y < 0) + (data->camera.pos.y > 0);
+		data->camera.pos.z += -(data->camera.pos.z < 0) + (data->camera.pos.z > 0);
+	}
+	if (data->ex.key[KEY_QUESTION]) {
+		data->camera.rot = (t_vector3){0, 0, 0};
+		data->camera.pos = (t_vector3){0, 0, 0};
+		data->map->rot = (t_vector3){0, 0, 0};
+		data->map->pos = (t_vector3){0, 0, 0};
 	}
 	mlx_mouse_get_pos(data->win, &data->ex.mouse.x, &data->ex.mouse.y);
 	ft_memset(data->img.addr, 0, WIDTH * HEIGHT * data->img.bits_per_pixel / 8);
