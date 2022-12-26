@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/26 23:05:09 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 04:00:47 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 # define KEY_ESC 53
 # define KEY_1 18
 # define KEY_2 19
+# define KEY_3 20
+# define KEY_4 21
+# define KEY_DOT 43
+# define KEY_COMMA 47
+# define KEY_QUESTION 44
 # define KEY_W 13
 # define KEY_A 0
 # define KEY_S 1
