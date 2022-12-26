@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 07:40:25 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/17 17:21:47 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/26 21:05:24 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,13 @@ t_vector4	vnor4(t_vector4 v1);
 
 t_vector3	m3_mul_v3(t_matrix3 m1, t_vector3 v1);
 t_matrix3	m3_mul_m3(t_matrix3 m1, t_matrix3 m2);
+t_matrix3	m3_mul(t_matrix3 m1, double m2);
+t_matrix3	m3_trans(t_matrix3 m1);
+t_matrix3	m3_unit();
 t_vector4	m4_mul_v4(t_matrix4 m1, t_vector4 v1);
 t_matrix4	m4_mul_m4(t_matrix4 m1, t_matrix4 m2);
+t_matrix4	m4_mul(t_matrix4 m1, double m2);
+t_matrix4	m4_trans(t_matrix4 m1);
+t_matrix4	m4_unit();
 
 #endif

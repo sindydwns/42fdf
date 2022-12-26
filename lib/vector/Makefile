@@ -6,7 +6,7 @@
 #    By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/08 07:41:41 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/18 13:57:22 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/26 21:04:05 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,14 @@ OBJS = \
 	vnor4.o \
 	m3_mul_m3.o \
 	m3_mul_v3.o \
+	m3_mul.o \
+	m3_trans.o \
+	m3_unit.o \
 	m4_mul_m4.o \
 	m4_mul_v4.o \
+	m4_mul.o \
+	m4_trans.o \
+	m4_unit.o \
 
 INCLUDE =
 
