@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/27 04:02:07 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 18:01:43 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	init_camera(t_camera *cam)
 
 int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 {
-	map->scl = (t_vector3){10, 10, 10};
+	// map->scl = (t_vector3){1, 1, 0.1};
 
 	cam->tpos = vsum3(vmul3(cam->tpos, DEFER), vmul3(cam->pos, 1 - DEFER));
 	cam->trot = vsum3(vmul3(cam->trot, DEFER), vmul3(cam->rot, 1 - DEFER));
@@ -204,11 +204,11 @@ int	render_next_frame(t_data *data)
 	}
 	if (data->ex.key[KEY_1]) {
 		data->camera.pos = (t_vector3){-100, 100, 100};
-		data->camera.rot = (t_vector3){-45, -atan(1 / sqrt(2)) * 180 / M_PI, 0};
+		data->camera.rot = (t_vector3){-45, -atan(1 / sqrt(2)) * 180 / M_PI, 30};
 	}
 	if (data->ex.key[KEY_2]) {
 		data->camera.pos = (t_vector3){100, 100, 100};
-		data->camera.rot = (t_vector3){-45, atan(1 / sqrt(2)) * 180 / M_PI, 0};
+		data->camera.rot = (t_vector3){-45, atan(1 / sqrt(2)) * 180 / M_PI, -30};
 	}
 	if (data->ex.key[KEY_DOT]) {
 		data->camera.pos.x -= -(data->camera.pos.x < 0) + (data->camera.pos.x > 0);
@@ -226,6 +226,10 @@ int	render_next_frame(t_data *data)
 		data->map->rot = (t_vector3){0, 0, 0};
 		data->map->pos = (t_vector3){0, 0, 0};
 	}
+	if (data->ex.key[KEY_PLUS])
+		data->camera.zoom *= 1.2;
+	if (data->ex.key[KEY_MINUS])
+		data->camera.zoom /= 1.2;
 	mlx_mouse_get_pos(data->win, &data->ex.mouse.x, &data->ex.mouse.y);
 	ft_memset(data->img.addr, 0, WIDTH * HEIGHT * data->img.bits_per_pixel / 8);
 	render_frame(&data->img, data->map, &data->camera, &data->ex);
