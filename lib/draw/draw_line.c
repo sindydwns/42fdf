@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:46:33 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/27 20:58:54 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 23:52:16 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,65 @@ static int	abs(int value)
 	return (value * ((value > 0) - (value < 0)));
 }
 
-static void	draw(t_img *target, t_point start, t_point end)
+static void	draw_line_row(t_img *target, t_point start, t_point end)
 {
-	const int	dx = abs(end.x - start.x);
-	const int	dy = -abs(end.y - start.y);
-	int			error;
+	const int	dx = end.x - start.x;
+	const int	dy = end.y - start.y;
+	int			d;
 
-	error = dx + dy;
-	while (start.x != end.x || start.y != end.y)
+	d = (2 * abs(dy)) - dx;
+	while (start.x < end.x)
 	{
 		draw_pixel(target, start);
-		if (error * 2 >= dy)
+		if (d > 0)
 		{
-			if (start.x == end.x)
-				break ;
-			error += dy;
-			start.x += (start.x < end.x) - (start.x >= end.x);
+			start.y += (dy > 0) - (dy < 0);
+			d += 2 * (abs(dy) - dx);
 		}
-		if (error * 2 <= dx)
+		else
+			d += 2 * abs(dy);
+		start.x++;
+	}
+	draw_pixel(target, end);
+}
+
+static void	draw_line_high(t_img *target, t_point start, t_point end)
+{
+	const int	dx = end.x - start.x;
+	const int	dy = end.y - start.y;
+	int			d;
+
+	d = (2 * abs(dx)) - dy;
+	while (start.y < end.y)
+	{
+		draw_pixel(target, start);
+		if (d > 0)
 		{
-			if (start.y == end.y)
-				break ;
-			error += dx;
-			start.y += (start.y < end.y) - (start.y >= end.y);
+			start.x += (dx > 0) - (dx < 0);
+			d += 2 * (abs(dx) - dy);
 		}
+		else
+			d += 2 * abs(dx);
+		start.y++;
+	}
+	draw_pixel(target, end);
+}
+
+static void	draw(t_img *target, t_point start, t_point end)
+{
+	if (abs(end.y - start.y) < abs(end.x - start.x))
+	{
+		if (start.x > end.x)
+			draw_line_row(target, end, start);
+		else
+			draw_line_row(target, start, end);
+	}
+	else
+	{
+		if (start.y > end.y)
+			draw_line_high(target, end, start);
+		else
+			draw_line_high(target, start, end);
 	}
 }
 

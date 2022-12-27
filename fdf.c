@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/27 21:12:44 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 23:51:06 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,6 @@ int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 	t_matrix4 mat = m4_mul_m4(axis_cam_matrix, obj_matrix);
 	// mat = obj_matrix;
 	
-	printf("map pos: %.2f\t %.2f\t %.2f\t\n", map->pos.x, map->pos.y, map->pos.z);
-	printf("map rot: %.2f\t %.2f\t %.2f\t\n", map->rot.x, map->rot.y, map->rot.z);
-	printf("map scl: %.2f\t %.2f\t %.2f\t\n", map->scl.x, map->scl.y, map->scl.z);
-	printf("cam pos: %.2f\t %.2f\t %.2f\t\n", cam->pos.x, cam->pos.y, cam->pos.z);
-	printf("cam rot: %.2f\t %.2f\t %.2f\t\n", cam->rot.x, cam->rot.y, cam->rot.z);
-	printf("cam zoom: %.2f\n\n", cam->zoom);
-
 	for (int i = 0; i < map->dot_len; i++) {
 		t_vector3 point = map->dots[i];
 		t_vector4 res = m4_mul_v4(mat, vect4(point.x, point.y, point.z, 1));
@@ -136,11 +129,11 @@ int	render_frame(t_img *img, t_obj *map, t_camera *cam, t_extra *e)
 		for (int j = -3; j < 3; j++)
 			draw_pixel(img, (t_point){zero.x + i, zero.y + j, C_RED});
 	t_vector4 xx = vsum4(m4_mul_v4(axis_cam_matrix, vect4(1000, 0, 0, 1)), (t_vector4){WIDTH / 2, HEIGHT / 2, 0, 0});
-	draw_line(img, (t_point){xx.x, xx.y, C_RED}, (t_point){zero.x, zero.y, C_WHITE});
+	draw_line(img, (t_point){xx.x, xx.y, C_RED}, (t_point){zero.x, zero.y, C_RED});
 	t_vector4 yy = vsum4(m4_mul_v4(axis_cam_matrix, vect4(0, 1000, 0, 1)), (t_vector4){WIDTH / 2, HEIGHT / 2, 0, 0});
-	draw_line(img, (t_point){yy.x, yy.y, C_GREEN}, (t_point){zero.x, zero.y, C_WHITE});
+	draw_line(img, (t_point){yy.x, yy.y, C_GREEN}, (t_point){zero.x, zero.y, C_GREEN});
 	t_vector4 zz = vsum4(m4_mul_v4(axis_cam_matrix, vect4(0, 0, 1000, 1)), (t_vector4){WIDTH / 2, HEIGHT / 2, 0, 0});
-	draw_line(img, (t_point){zz.x, zz.y, C_BLUE}, (t_point){zero.x, zero.y, C_WHITE});
+	draw_line(img, (t_point){zz.x, zz.y, C_BLUE}, (t_point){zero.x, zero.y, C_BLUE});
 	e++	;
 	return (0);
 }
