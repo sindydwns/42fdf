@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/27 18:01:43 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 21:12:44 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,9 +226,9 @@ int	render_next_frame(t_data *data)
 		data->map->rot = (t_vector3){0, 0, 0};
 		data->map->pos = (t_vector3){0, 0, 0};
 	}
-	if (data->ex.key[KEY_PLUS])
+	if (data->ex.key[KEY_PLUS] && data->camera.zoom < 1000)
 		data->camera.zoom *= 1.2;
-	if (data->ex.key[KEY_MINUS])
+	if (data->ex.key[KEY_MINUS] && data->camera.zoom > 0.1)
 		data->camera.zoom /= 1.2;
 	mlx_mouse_get_pos(data->win, &data->ex.mouse.x, &data->ex.mouse.y);
 	ft_memset(data->img.addr, 0, WIDTH * HEIGHT * data->img.bits_per_pixel / 8);
@@ -263,7 +263,7 @@ int	mouse_events(int button, int x, int y, t_data *param)
 {
 	x++;
 	y++;
-	if (button == MOUSE_WHEEL_UP)
+	if (button == MOUSE_WHEEL_UP && param->camera.zoom < 1000)
 		param->camera.zoom *= 1.2;
 	if (button == MOUSE_WHEEL_DOWN && param->camera.zoom > 0.1)
 		param->camera.zoom /= 1.2;
