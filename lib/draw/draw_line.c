@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:46:33 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/27 17:19:29 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 20:58:54 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ static void	draw(t_img *target, t_point start, t_point end)
 
 int	draw_line(t_img *target, t_point start, t_point end)
 {
-	const int	sc = (start.x < 0) << 3 | (start.x >= WIDTH) << 2 | (start.y < 0) << 1 | (start.y >= HEIGHT);
-	const int	ec = (end.x < 0) << 3 | (end.x >= WIDTH) << 2 | (end.y < 0) << 1 | (end.y >= HEIGHT);
-	
+	const int	sc = (start.x < 0) << 3 | (start.x >= WIDTH) << 2 \
+					| (start.y < 0) << 1 | (start.y >= HEIGHT);
+	const int	ec = (end.x < 0) << 3 | (end.x >= WIDTH) << 2 \
+					| (end.y < 0) << 1 | (end.y >= HEIGHT);
+
 	if ((sc & ec) == 0)
 		draw(target, start, end);
 	return (0);

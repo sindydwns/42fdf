@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/26 18:34:47 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 20:51:06 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	get_width(const char *path)
 	return (width);
 }
 
-static void	parse(t_obj *obj, int fd, int w, int h)
+static void	parse(t_obj *ob, int fd, int w, int h)
 {
 	const t_vector3	t = (t_vector3){((double)w) / 2, ((double)h) / 2, 0};
 	t_point			p;
@@ -74,12 +74,12 @@ static void	parse(t_obj *obj, int fd, int w, int h)
 		p.x = 0;
 		while (col[p.x] && *col[p.x] != '\n')
 		{
-			obj->dots[w * p.y + p.x] = (t_vector3){
-				(p.x + 0.5) - t.x, (p.y + 0.5)- t.y, ft_atoi(col[p.x])};
+			ob->dots[w * p.y + p.x] = (t_vector3){
+				(p.x + 0.5) - t.x, (p.y + 0.5) - t.y, ft_atoi(col[p.x])};
 			if (p.x < w - 1)
-				obj->lines[p.c++] = (t_line){w * p.y + p.x, w * p.y + (p.x + 1)};
+				ob->lines[p.c++] = (t_line){w * p.y + p.x, w * p.y + (p.x + 1)};
 			if (p.y < h - 1)
-				obj->lines[p.c++] = (t_line){w * p.y + p.x, w * (p.y + 1) + p.x};
+				ob->lines[p.c++] = (t_line){w * p.y + p.x, w * (p.y + 1) + p.x};
 			free(col[p.x++]);
 		}
 		free(line);

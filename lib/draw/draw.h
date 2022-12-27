@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:06 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/24 18:21:33 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 16:14:27 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define DRAW_H
 
 # ifndef WIDTH
-#  define WIDTH 800
+#  define WIDTH 1920
 # endif
 # ifndef HEIGHT
-#  define HEIGHT 600
+#  define HEIGHT 1080
 # endif
 
 # define C_RED 0xFF0000

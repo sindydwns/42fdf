@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   m3_unit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 20:07:23 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/26 20:58:13 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 20:46:36 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-t_matrix3	m3_unit()
+t_matrix3	m3_unit(void)
 {
 	return ((t_matrix3){
 		(t_vector3){1, 0, 0},

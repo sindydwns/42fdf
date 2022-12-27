@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/27 18:24:30 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/27 20:52:37 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@
 
 # define MAX_KEYCODE 300
 
+# define DEFER 0.85
+# include <stdlib.h>
+# include "mlx.h"
+# include "draw.h"
+# include "vector.h"
+# include "math.h"
+
 enum {
 	ON_KEYDOWN = 2,
 	ON_KEYUP = 3,
@@ -48,14 +55,6 @@ enum {
 	ON_MOUSEMOVE = 6,
 	ON_DESTROY = 17,
 };
-
-# define DEFER 0.85
-# include <stdlib.h>
-# include "mlx.h"
-# include "draw.h"
-# include "vector.h"
-# include "math.h"
-#include			<stdio.h>
 
 typedef struct s_line
 {
