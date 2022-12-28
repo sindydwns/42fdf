@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/28 10:26:54 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/28 10:53:35 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,10 @@ int	render_next_frame(t_data *data)
 			data->map->pos.z += 1;
 		if (data->ex.key[KEY_F])
 			data->map->pos.z -= 1;
+		if (data->ex.key[KEY_T])
+			data->map->scl.z *= 1.05;
+		if (data->ex.key[KEY_G])
+			data->map->scl.z /= 1.05;
 		if (data->ex.key[KEY_Q])
 			data->map->rot.z -= 1;
 		if (data->ex.key[KEY_E])
@@ -220,9 +224,9 @@ int	render_next_frame(t_data *data)
 		data->map->pos = (t_vector3){0, 0, 0};
 	}
 	if (data->ex.key[KEY_PLUS] && data->camera.zoom < 100)
-		data->camera.zoom *= 1.2;
+		data->camera.zoom *= 1.05;
 	if (data->ex.key[KEY_MINUS] && data->camera.zoom > 0.1)
-		data->camera.zoom /= 1.2;
+		data->camera.zoom /= 1.05;
 	mlx_mouse_get_pos(data->win, &data->ex.mouse.x, &data->ex.mouse.y);
 	ft_memset(data->img.addr, 0, WIDTH * HEIGHT * data->img.bits_per_pixel / 8);
 	render_frame(&data->img, data->map, &data->camera, &data->ex);
@@ -277,7 +281,7 @@ int	main(int argc, char *argv[])
 		exit(1);
 	data.map = create_map(argv[1]);
 	init_camera(&data.camera);
-	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "fdf");
+	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, argv[1]);
 	data.img.size = (t_point){WIDTH, HEIGHT, 0};
 	data.img.obj = mlx_new_image(data.mlx, data.img.size.x, data.img.size.y);
 	data.img.addr = mlx_get_data_addr(data.img.obj, &data.img.bits_per_pixel, &data.img.line_length, &data.img.endian);

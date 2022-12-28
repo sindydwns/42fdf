@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/27 20:52:37 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/28 10:43:25 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define KEY_D 2
 # define KEY_R 15
 # define KEY_F 3
+# define KEY_T 17
+# define KEY_G 5
 # define KEY_Q 12
 # define KEY_E 14
 # define KEY_UP 126
