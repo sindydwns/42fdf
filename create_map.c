@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/27 20:51:06 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/28 10:23:49 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	get_width(const char *path)
 	col = ft_split(line, ' ');
 	if (col == 0)
 		exit(1);
-	while (col[width])
+	while (col[width] && (*col[width] == '-' || ft_isdigit(*col[width])))
 		free(col[width++]);
 	free(col);
 	free(line);
