@@ -6,7 +6,7 @@
 #    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/28 19:27:45 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/08 07:44:40 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/28 00:28:17 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ OBJS = \
 	draw_line.o \
 	draw_rect.o \
 	draw_circle.o \
+	blending.o
 
 INCLUDE =
 

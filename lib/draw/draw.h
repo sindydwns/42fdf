@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:06 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/27 16:14:27 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/28 04:35:18 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int	draw_pixel(t_img *target, t_point point);
 int	draw_line(t_img *target, t_point start, t_point end);
 int	draw_rect(t_img *target, t_point start, t_point end);
 int	draw_circle(t_img *target, t_point center, int radius);
+int	blending(int color1, int color2, int i, int max);
 
 #endif
