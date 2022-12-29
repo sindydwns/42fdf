@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 02:26:03 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 03:00:42 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,28 @@ static int	get_width(const char *path)
 	return (width);
 }
 
-static void	parse(t_obj *ob, int fd, int w, int h)
+static t_point	place_sphere(t_obj *ob, char *num, t_point s, t_point p)
+{
+	t_vector3	v;
+
+	v.x = cos(2 * M_PI / s.x * (p.x + 0.5)) * sin(M_PI / s.y * (p.y + 0.5));
+	v.y = sin(2 * M_PI / s.x * (p.x + 0.5)) * sin(M_PI / s.y * (p.y + 0.5));
+	v.z = cos(M_PI / s.y * (p.y + 0.5));
+	ob->dots[s.x * p.y + p.x] = vmul3(v, 1 + 0.01 * ft_atoi(num));
+	if (p.x < s.x - 1)
+		ob->lines[p.c++] = (t_line){s.x * p.y + p.x, s.x * p.y + (p.x + 1)};
+	else
+		ob->lines[p.c++] = (t_line){s.x * p.y + p.x, s.x * p.y};
+	if (p.y < s.y - 1)
+		ob->lines[p.c++] = (t_line){s.x * p.y + p.x, s.x * (p.y + 1) + p.x};
+	return (p);
+}
+
+static void	parse(t_obj *ob, int fd, t_point s)
 {
 	t_point		p;
 	char		*line;
 	char		**col;
-	t_vector3	v;
 
 	line = get_next_line(fd);
 	p = (t_point){0, 0, 0};
@@ -72,23 +88,13 @@ static void	parse(t_obj *ob, int fd, int w, int h)
 		p.x = 0;
 		while (col[p.x] && *col[p.x] != '\n')
 		{
-			v.x = cos(2 * M_PI / w * (p.x + 0.5)) * sin(M_PI / h * (p.y + 0.5));
-			v.y = sin(2 * M_PI / w * (p.x + 0.5)) * sin(M_PI / h * (p.y + 0.5));
-			v.z = cos(M_PI / h * (p.y + 0.5));
-			ob->dots[w * p.y + p.x] = vmul3(v, 1 + 0.01 * ft_atoi(col[p.x]));
-			if (p.x < w - 1)
-				ob->lines[p.c++] = (t_line){w * p.y + p.x, w * p.y + (p.x + 1)};
-			else
-				ob->lines[p.c++] = (t_line){w * p.y + p.x, w * p.y};
-			if (p.y < h - 1)
-				ob->lines[p.c++] = (t_line){w * p.y + p.x, w * (p.y + 1) + p.x};
+			p = place_sphere(ob, col[p.x], s, p);
 			free(col[p.x++]);
 		}
 		free(line);
 		line = get_next_line(fd);
 		p.y++;
 	}
-	ob->scl = (t_vector3){100, 100, 100};
 }
 
 t_obj	*create_sphere(const char *path)
@@ -108,6 +114,6 @@ t_obj	*create_sphere(const char *path)
 	res->lines = ft_calloc_guard(sizeof(t_vector3) * line_cnt);
 	res->line_len = line_cnt;
 	res->scl = vect3(100, 100, 100);
-	parse(res, fd, width, height);
+	parse(res, fd, (t_point){width, height, 0});
 	return (res);
 }
