@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 07:24:28 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 07:28:14 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char *argv[])
 	t_data	data;
 
 	if (argc != 2)
-		err_exit(ERR);
+		err_exit(ERR_PARAM);
 	ft_memset(&data, 0, sizeof(data));
 	data.mlx = mlx_init();
 	if (data.mlx == 0)
