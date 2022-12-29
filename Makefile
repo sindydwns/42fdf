@@ -6,7 +6,7 @@
 #    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 20:46:00 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/30 01:47:59 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/30 01:55:21 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,14 @@ BONUS_OBJS = \
 	fdf_transform_matrix_bonus.o \
 	fdf_keyset_bonus.o \
 
+ifdef WITH_BONUS
+	OBJS = $(BONUS_OBJS)
+endif
+
 all: $(NAME) 
 
-bonus: $(NAME) 
+bonus:
+	make WITH_BONUS=1 all
 
 $(NAME): $(OBJS) $(LIB) $(MLXLIB)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBDUP) $(DEBUG) $(OUTPUT_OPTION) -framework OpenGL -framework AppKit 
@@ -53,6 +58,7 @@ $(LIB) $(MLXLIB):
 
 clean:
 	rm -f $(OBJS)
+	rm -f $(BONUS_OBJS)
 	for dir in $(dir $(LIB)); do make -C $$dir clean; done
 	make -C $(dir $(MLXLIB)) clean
 
