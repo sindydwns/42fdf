@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 01:13:38 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 02:11:28 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,12 @@ static int	render_next_frame(t_data *data)
 	t_camera	*c;
 
 	c = &data->camera;
-	c->tpos = vsum3(vmul3(c->tpos, DEFER), vmul3(c->pos, 1 - DEFER));
-	c->trot = vsum3(vmul3(c->trot, DEFER), vmul3(c->rot, 1 - DEFER));
-	c->tzoom = c->tzoom * DEFER + c->zoom * (1 - DEFER);
 	c->matrix = m4_unit();
-	c->matrix = m4_mul_m4(get_move_matrix(vrev3(c->tpos)), c->matrix);
-	c->matrix = m4_mul_m4(m4_trans(get_rotate_matrix(c->trot)), c->matrix);
+	c->matrix = m4_mul_m4(get_move_matrix(vrev3(c->pos)), c->matrix);
+	c->matrix = m4_mul_m4(m4_trans(get_rotate_matrix(c->rot)), c->matrix);
 	c->matrix = m4_mul_m4(get_scale_matrix(\
-		(t_vector3){c->tzoom, c->tzoom, c->tzoom}), c->matrix);
-	mlx_mouse_get_pos(data->win, &data->ex.mouse.x, &data->ex.mouse.y);
+		(t_vector3){c->zoom, c->zoom, c->zoom}), c->matrix);
 	ft_memset(data->img.addr, 0, WIDTH * HEIGHT * data->img.bits_per_pixel / 8);
-	keystrock(data);
 	render_frame(&data->img, data->map, &data->camera);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.obj, 0, 0);
 	return (0);
@@ -97,17 +92,17 @@ int	main(int argc, char *argv[])
 	if (data.mlx == 0)
 		exit(1);
 	data.map = create_map(argv[1]);
-	data.camera.zoom = 1;
+	data.camera.pos = (t_vector3){-100, 100, 100};
+	data.camera.rot = (t_vector3){-45, -atan(1 / sqrt(2)) * 180 / M_PI, 30};
+	data.camera.zoom = 20;
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, argv[1]);
 	data.img.size = (t_point){WIDTH, HEIGHT, 0};
 	data.img.obj = mlx_new_image(data.mlx, data.img.size.x, data.img.size.y);
 	data.img.addr = mlx_get_data_addr(data.img.obj, &data.img.bits_per_pixel, \
 		&data.img.line_length, &data.img.endian);
 	mlx_put_image_to_window(data.mlx, data.win, data.img.obj, 0, 0);
-	mlx_mouse_hook(data.win, mouse_event, &data);
 	mlx_hook(data.win, ON_DESTROY, 0, close_event, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 0, keydown_event, &data);
-	mlx_hook(data.win, ON_KEYUP, 0, keyup_event, &data);
 	mlx_loop_hook(data.mlx, render_next_frame, &data);
 	mlx_loop(data.mlx);
 	return (0);

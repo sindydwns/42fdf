@@ -6,7 +6,7 @@
 #    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 20:46:00 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/30 01:55:21 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/30 02:02:49 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ OBJS = \
 	fdf_destroy_map.o \
 	fdf_events.o \
 	fdf_transform_matrix.o \
-	fdf_keyset.o \
 
 BONUS_OBJS = \
 	fdf_bonus.o \
