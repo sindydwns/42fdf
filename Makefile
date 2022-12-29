@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yonshin <yonshin@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 20:46:00 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/22 02:07:33 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/30 01:11:45 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ OBJS = \
 	fdf.o \
 	create_map.o \
 	destroy_map.o \
+	fdf_events.o \
+	fdf_transform_matrix.o \
+	fdf_keyset.o \
 
 all: $(NAME) 
 

@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 18:34:06 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/28 04:35:18 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 00:47:10 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # endif
 
 # define C_RED 0xFF0000
-# define C_GREEN 0x00FF00
-# define C_BLUE 0x0000FF
-# define C_YELLOW 0xFFFF00
-# define C_WHITE 0xFFFFFF
+# define C_GRN 0x00FF00
+# define C_BLU 0x0000FF
+# define C_YLW 0xFFFF00
+# define C_WHT 0xFFFFFF
 
 typedef struct s_point
 {

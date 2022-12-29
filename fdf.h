@@ -6,12 +6,13 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/28 10:43:25 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 01:22:03 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+
 # define KEY_ESC 53
 # define KEY_1 18
 # define KEY_2 19
@@ -39,24 +40,24 @@
 # define KEY_MINUS 27
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
-
 # define MAX_KEYCODE 300
 
 # define DEFER 0.85
+
+# define ON_KEYDOWN 2
+# define ON_KEYUP 3
+# define ON_MOUSEDOWN 4
+# define ON_MOUSEUP 5
+# define ON_MOUSEMOVE 6
+# define ON_DESTROY 17
+
 # include <stdlib.h>
+# include "libft.h"
 # include "mlx.h"
 # include "draw.h"
 # include "vector.h"
 # include "math.h"
-
-enum {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_DESTROY = 17,
-};
+# include "myutil.h"
 
 typedef struct s_line
 {
@@ -78,6 +79,7 @@ typedef struct s_obj
 
 typedef struct s_camera
 {
+	t_matrix4	matrix;
 	t_vector3	pos;
 	t_vector3	tpos;
 	t_vector3	rot;
@@ -96,14 +98,21 @@ typedef struct s_data
 {
 	void				*mlx;
 	void				*win;
-	unsigned long long	frame;
 	t_img				img;
 	t_camera			camera;
 	t_extra				ex;
 	t_obj				*map;
 }	t_data;
 
-t_obj	*create_map(const char *path);
-void	destroy_map(t_obj *map);
+t_obj		*create_map(const char *path);
+void		destroy_map(t_obj *map);
+int			close_event(void);
+int			keydown_event(int keycode, t_data *data);
+int			keyup_event(int keycode, t_data *data);
+int			mouse_event(int button, int x, int y, t_data *param);
+t_matrix4	get_move_matrix(t_vector3 v);
+t_matrix4	get_rotate_matrix(t_vector3 v);
+t_matrix4	get_scale_matrix(t_vector3 v);
+void		keystrock(t_data *data);
 
 #endif
