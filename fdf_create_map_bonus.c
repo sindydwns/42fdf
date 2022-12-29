@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 01:48:28 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 07:23:11 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	get_height(const char *path)
 	int			height;
 
 	if (fd < 0)
-		exit(1);
+		err_exit(ERR_PARAM);
 	height = 0;
 	line = get_next_line(fd);
 	while (line)
@@ -41,14 +41,14 @@ static int	get_width(const char *path)
 	int			width;
 
 	if (fd < 0)
-		exit(1);
+		err_exit(ERR_PARAM);
 	width = 0;
 	line = get_next_line(fd);
 	if (line == 0)
-		exit(1);
+		err_exit(ERR_PARAM);
 	col = ft_split(line, ' ');
 	if (col == 0)
-		exit(1);
+		err_exit(ERR_PARAM);
 	while (col[width] && (*col[width] == '-' || ft_isdigit(*col[width])))
 		free(col[width++]);
 	free(col);
