@@ -6,14 +6,12 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/28 10:23:49 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/29 23:26:41 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "fdf.h"
-#include "libft.h"
-#include "myutil.h"
 
 static int	get_height(const char *path)
 {
