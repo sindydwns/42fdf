@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 02:31:26 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 03:19:18 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,6 @@ static t_matrix4	get_matrix(t_obj *map)
 	obj_matrix = m4_mul_m4(get_rotate_matrix(map->rot), obj_matrix);
 	obj_matrix = m4_mul_m4(get_move_matrix(map->pos), obj_matrix);
 	return (obj_matrix);
-}
-
-static void	draw_axis(t_img *img, t_camera *cam)
-{
-	const t_vector4	a = (t_vector4){WIDTH / 2, HEIGHT / 2, 0, 0};
-	const t_vector4	zr = vsum4(m4_mul_v4(cam->matrix, vect4(0, 0, 0, 1)), a);
-	const t_vector4	ax = vsum4(m4_mul_v4(cam->matrix, vect4(1000, 0, 0, 1)), a);
-	const t_vector4	ay = vsum4(m4_mul_v4(cam->matrix, vect4(0, 1000, 0, 1)), a);
-	const t_vector4	az = vsum4(m4_mul_v4(cam->matrix, vect4(0, 0, 1000, 1)), a);
-
-	draw_line(img, (t_point){ax.x, ax.y, C_RED}, (t_point){zr.x, zr.y, C_RED});
-	draw_line(img, (t_point){ay.x, ay.y, C_GRN}, (t_point){zr.x, zr.y, C_GRN});
-	draw_line(img, (t_point){az.x, az.y, C_BLU}, (t_point){zr.x, zr.y, C_BLU});
 }
 
 static int	render_frame(t_img *img, t_obj *map, t_camera *cam)
@@ -61,7 +48,6 @@ static int	render_frame(t_img *img, t_obj *map, t_camera *cam)
 		draw_line(img, (t_point){point1.x, point1.y, C_YLW}, \
 			(t_point){point2.x, point2.y, C_YLW});
 	}
-	draw_axis(img, cam);
 	return (0);
 }
 
