@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   myutil.h                                           :+:      :+:    :+:   */
+/*   free_splited_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 00:04:31 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 07:56:29 by yonshin          ###   ########.fr       */
+/*   Created: 2022/12/30 07:53:00 by yonshin           #+#    #+#             */
+/*   Updated: 2022/12/30 08:20:21 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MYUTIL_H
-# define MYUTIL_H
-# include <stdlib.h>
-# define ERR_PARAM "ERR_PARAM"
-# define ERR "ERR"
+#include "myutil.h"
 
-void	*ft_calloc_guard(size_t size);
-void	err_exit(const char *msg);
-void	free_splited_str(char **strs);
+void	free_splited_str(char **strs)
+{
+	int	i;
 
-#endif
+	if (strs == 0)
+		return ;
+	i = -1;
+	while (strs[++i])
+		free(strs[i]);
+	free(strs);
+}

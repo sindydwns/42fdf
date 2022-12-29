@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 07:23:04 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 08:26:27 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,10 @@ static void	parse(t_obj *ob, int fd, t_point s)
 	while (line)
 	{
 		col = ft_split(line, ' ');
-		p.x = 0;
-		while (col[p.x] && *col[p.x] != '\n')
-		{
+		p.x = -1;
+		while (col[++p.x] && *col[p.x] != '\n')
 			p = place_sphere(ob, col[p.x], s, p);
-			free(col[p.x++]);
-		}
+		free_splited_str(col);
 		free(line);
 		line = get_next_line(fd);
 		p.y++;
@@ -115,5 +113,6 @@ t_obj	*create_sphere(const char *path)
 	res->line_len = line_cnt;
 	res->scl = vect3(100, 100, 100);
 	parse(res, fd, (t_point){width, height, 0});
+	close(fd);
 	return (res);
 }

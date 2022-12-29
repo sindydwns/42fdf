@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:30:13 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 07:20:23 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 08:20:49 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ static void	parse(t_obj *ob, int fd, int w, int h)
 	while (line)
 	{
 		col = ft_split(line, ' ');
-		p.x = 0;
-		while (col[p.x] && *col[p.x] != '\n')
+		p.x = -1;
+		while (col[++p.x] && *col[p.x] != '\n')
 		{
 			ob->dots[w * p.y + p.x] = (t_vector3){
 				(p.x + 0.5) - t.x, (p.y + 0.5) - t.y, ft_atoi(col[p.x])};
@@ -78,8 +78,8 @@ static void	parse(t_obj *ob, int fd, int w, int h)
 				ob->lines[p.c++] = (t_line){w * p.y + p.x, w * p.y + (p.x + 1)};
 			if (p.y < h - 1)
 				ob->lines[p.c++] = (t_line){w * p.y + p.x, w * (p.y + 1) + p.x};
-			free(col[p.x++]);
 		}
+		free_splited_str(col);
 		free(line);
 		line = get_next_line(fd);
 		p.y++;
@@ -104,5 +104,6 @@ t_obj	*create_map(const char *path)
 	res->line_len = line_cnt;
 	res->scl = vect3(1, 1, 1);
 	parse(res, fd, width, height);
+	close(fd);
 	return (res);
 }
