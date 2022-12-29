@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 02:11:28 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 02:31:26 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	main(int argc, char *argv[])
 	data.img.obj = mlx_new_image(data.mlx, data.img.size.x, data.img.size.y);
 	data.img.addr = mlx_get_data_addr(data.img.obj, &data.img.bits_per_pixel, \
 		&data.img.line_length, &data.img.endian);
-	mlx_put_image_to_window(data.mlx, data.win, data.img.obj, 0, 0);
 	mlx_hook(data.win, ON_DESTROY, 0, close_event, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 0, keydown_event, &data);
 	mlx_loop_hook(data.mlx, render_next_frame, &data);

@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:20:59 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 01:35:39 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 02:44:00 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_data
 }	t_data;
 
 t_obj		*create_map(const char *path);
+t_obj		*create_sphere(const char *path);
 void		destroy_map(t_obj *map);
 int			close_event(void);
 int			keydown_event(int keycode, t_data *data);

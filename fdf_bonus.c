@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 15:48:53 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 01:36:09 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 02:30:21 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,22 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	if (argc != 2)
+	if (argc != 2 && argc != 3)
 		exit(1);
 	ft_memset(&data, 0, sizeof(data));
 	data.mlx = mlx_init();
 	if (data.mlx == 0)
 		exit(1);
-	data.map = create_map(argv[1]);
+	if (argc == 2)
+		data.map = create_map(argv[1]);
+	if (argc == 3)
+		data.map = create_sphere(argv[1]);
 	data.camera.zoom = 1;
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, argv[1]);
 	data.img.size = (t_point){WIDTH, HEIGHT, 0};
 	data.img.obj = mlx_new_image(data.mlx, data.img.size.x, data.img.size.y);
 	data.img.addr = mlx_get_data_addr(data.img.obj, &data.img.bits_per_pixel, \
 		&data.img.line_length, &data.img.endian);
-	mlx_put_image_to_window(data.mlx, data.win, data.img.obj, 0, 0);
 	mlx_mouse_hook(data.win, mouse_event, &data);
 	mlx_hook(data.win, ON_DESTROY, 0, close_event, &data);
 	mlx_hook(data.win, ON_KEYDOWN, 0, keydown_event, &data);

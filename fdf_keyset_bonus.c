@@ -6,7 +6,7 @@
 /*   By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 23:55:15 by yonshin           #+#    #+#             */
-/*   Updated: 2022/12/30 01:48:42 by yonshin          ###   ########.fr       */
+/*   Updated: 2022/12/30 02:35:51 by yonshin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ static void	cam_transform(t_camera *cam, int *key)
 		cam->pos.x + key[KEY_D] - key[KEY_A], \
 		cam->pos.y + key[KEY_W] - key[KEY_S], \
 		cam->pos.z + key[KEY_R] - key[KEY_F]};
-	cam->zoom = cam->zoom * (1 + (key[KEY_PLUS] - key[KEY_MINUS]) * 0.05);
 	cam->rot = (t_vector3){\
 		cam->rot.x + key[KEY_RIGHT] - key[KEY_LEFT], \
 		cam->rot.y + key[KEY_UP] - key[KEY_DOWN], \
 		cam->rot.z + key[KEY_E] - key[KEY_Q]};
+	if (key[KEY_PLUS] && cam->zoom < 1000)
+		cam->zoom *= 1.2;
+	if (key[KEY_MINUS] && cam->zoom > 0.1)
+		cam->zoom /= 1.2;
 }
 
 static void	preset(t_camera *cam, t_obj *map, int *key)
