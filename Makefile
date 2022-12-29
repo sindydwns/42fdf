@@ -6,7 +6,7 @@
 #    By: yonshin <yonshin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 20:46:00 by yonshin           #+#    #+#              #
-#    Updated: 2022/12/30 01:11:45 by yonshin          ###   ########.fr        #
+#    Updated: 2022/12/30 01:36:54 by yonshin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ INCLUDE = $(addprefix -I, $(dir $(LIB))) -I$(dir $(MLXLIB))
 LIBDUP = $(notdir $(LIB)) $(notdir $(MLXLIB))
 OBJS = \
 	fdf.o \
-	create_map.o \
-	destroy_map.o \
+	fdf_create_map.o \
+	fdf_destroy_map.o \
 	fdf_events.o \
 	fdf_transform_matrix.o \
 	fdf_keyset.o \
